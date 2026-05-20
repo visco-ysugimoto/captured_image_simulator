@@ -1,0 +1,3 @@
+[console_scripts]
+optsim = optsim.cli:main
+optsim-gui = optsim.gui.app:main

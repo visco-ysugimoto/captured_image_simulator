@@ -1,0 +1,20 @@
+.venv/
+.venv312/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Local render/debug artifacts
+test.png
+nul.png
+*.hdr
+*.exr
+*.npy
+*.npz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp

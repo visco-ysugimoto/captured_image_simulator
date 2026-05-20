@@ -1,0 +1,103 @@
+name: sample_widget_ring
+
+camera:
+  name: cam
+  transform:
+    position: [0.0, 0.0, 120.0]
+    rotation_deg: [0.0, 0.0, 0.0]
+  sensor:
+    width_px: 800
+    height_px: 600
+    pixel_pitch_um: 5.5
+    bit_depth: 12
+    exposure_time_ms: 10.0
+    quantum_efficiency: 0.6
+    full_well_e: 20000.0
+    read_noise_e: 2.0
+    dark_current_e_per_s: 5.0
+    monochrome: true
+
+lens:
+  magnification: 0.1
+  working_distance_mm: 80.0
+  na: 0.04
+  distortion_pct: 0.0
+
+lights:
+  - kind: ring
+    name: ring
+    transform:
+      position: [0.0, 0.0, 60.0]
+      rotation_deg: [0.0, 0.0, 0.0]
+    inner_radius_mm: 25.0
+    outer_radius_mm: 45.0
+    intensity: 600.0
+    tilt_deg: 35.0
+    segments: 24
+  - kind: backlight
+    name: back
+    transform:
+      position: [0.0, 0.0, -20.0]
+    width_mm: 120.0
+    height_mm: 120.0
+    intensity: 500.0
+    enabled: false
+
+targets:
+  - name: stage
+    transform:
+      position: [0.0, 0.0, -1.0]
+    geometry:
+      geometry_kind: primitive
+      primitive:
+        kind: plane
+        size_mm: [120.0, 120.0, 1.0]
+    material:
+      name: stage_diffuse
+      kind: diffuse
+      base_color: [0.7, 0.7, 0.7]
+  - name: widget
+    transform:
+      position: [0.0, 0.0, 5.0]
+      rotation_deg: [0.0, 0.0, 15.0]
+    geometry:
+      geometry_kind: primitive
+      primitive:
+        kind: cube
+        size_mm: [25.0, 15.0, 10.0]
+    material:
+      name: widget_aluminum_machined
+      kind: anisotropic
+      base_color: [0.84, 0.85, 0.87]
+      roughness: 0.32
+      anisotropy: 0.65
+  - name: pin1
+    transform:
+      position: [-12.0, -8.0, 1.0]
+    geometry:
+      geometry_kind: primitive
+      primitive:
+        kind: cylinder
+        size_mm: [3.0, 3.0, 4.0]
+        radius_mm: 2.5
+    material:
+      name: steel
+      kind: metal
+      base_color: [0.74, 0.75, 0.78]
+      roughness: 0.2
+  - name: pin2
+    transform:
+      position: [12.0, 8.0, 1.0]
+    geometry:
+      geometry_kind: primitive
+      primitive:
+        kind: cylinder
+        size_mm: [3.0, 3.0, 4.0]
+        radius_mm: 2.5
+    material:
+      name: steel
+      kind: metal
+      base_color: [0.74, 0.75, 0.78]
+      roughness: 0.2
+
+background_color: [0.0, 0.0, 0.0]
