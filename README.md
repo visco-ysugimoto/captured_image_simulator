@@ -1,5 +1,7 @@
 # Optical Simulator (optsim)
 
+**Repository:** https://github.com/visco-ysugimoto/captured_image_simulator
+
 マシンビジョン検査向けの光学シミュレータです。テレセントリックレンズ・任意形状のワーク・任意の照明配置を 3D 空間に置き、センサーに映る画像を物理ベースレンダリングで予測します。撮像画像のコントラストや SN 比など、検査適合性の定量評価まで一気通貫で行えます。
 
 ## 主な機能
@@ -317,6 +319,35 @@ pyinstaller packaging/optsim.spec
 - CI調査担当: 失敗ジョブの原因分析
 
 独立したタスクを Issue 単位で分割し、並列に進めると開発速度が上がります。
+
+詳細は `CONTRIBUTING.md`（人間向け）と `AGENTS.md`（Cursor エージェント向け）を参照してください。
+
+### リポジトリのクローン
+
+```powershell
+git clone https://github.com/visco-ysugimoto/captured_image_simulator.git
+cd captured_image_simulator
+.\rebuild_py312.ps1
+```
+
+既存クローンで `origin` が旧 URL の場合:
+
+```powershell
+git remote set-url origin https://github.com/visco-ysugimoto/captured_image_simulator.git
+git fetch origin
+```
+
+### GitHub 初回セットアップ（管理者）
+
+[リポジトリ Settings → Branches](https://github.com/visco-ysugimoto/captured_image_simulator/settings/branches) で `main` にブランチ保護を追加:
+
+1. **Add branch protection rule** → Branch name pattern: `main`
+2. **Require a pull request before merging** を ON
+3. **Require status checks to pass** を ON → チェック名 `test`（CI ジョブ名）を選択  
+   （初回 push 後に Actions が 1 回成功するとチェックが一覧に出ます）
+4. 保存
+
+任意: [Labels](https://github.com/visco-ysugimoto/captured_image_simulator/labels) に `bug`, `enhancement`, `good first issue` を作成。
 
 ## ライセンス
 
