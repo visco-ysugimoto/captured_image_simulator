@@ -1,0 +1,38 @@
+name: Feature request
+description: 機能追加・改善提案テンプレート
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 背景・課題
+      description: 何に困っているか、なぜ必要か
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案内容
+      description: 実現したい仕様やUIを記載してください
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 受け入れ条件
+      description: 完了判定できる形で箇条書きにしてください
+      placeholder: |
+        - [ ] 条件A
+        - [ ] 条件B
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: 今回スコープ外（任意）
+      description: あえて含めない内容があれば明記してください

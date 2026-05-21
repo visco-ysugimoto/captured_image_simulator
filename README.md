@@ -290,6 +290,34 @@ pyinstaller packaging/optsim.spec
 
 `dist/optsim/` に exe と必要な DLL が生成されます。
 
+## チーム開発運用（GitHub）
+
+本プロジェクトは、`main` を保護した PR ベース運用を前提にします。
+
+### 推奨ブランチ保護設定（`main`）
+
+- Require a pull request before merging（直接 push 禁止）
+- Require status checks to pass before merging（`CI` 必須）
+- Require conversation resolution before merging
+- Require linear history（任意）
+
+### 進め方（標準フロー）
+
+1. Issue を作成（バグ・機能要望テンプレートを使用）
+2. `feat/...` / `fix/...` ブランチを作成
+3. 実装・テスト・ドキュメント更新
+4. Pull Request を作成（テンプレートに沿って記入）
+5. CI 通過 + レビュー完了後に `main` へマージ
+
+### 役割分担（並列エージェント運用の例）
+
+- 実装担当: コード変更
+- テスト担当: 回帰テスト追加・確認
+- レビュー担当: 仕様漏れ/副作用チェック
+- CI調査担当: 失敗ジョブの原因分析
+
+独立したタスクを Issue 単位で分割し、並列に進めると開発速度が上がります。
+
 ## ライセンス
 
 MIT License

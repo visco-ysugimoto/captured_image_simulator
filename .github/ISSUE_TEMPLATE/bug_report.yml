@@ -1,0 +1,59 @@
+name: Bug report
+description: 不具合を報告するテンプレート
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 何が起きたかを簡潔に記載してください
+      placeholder: Render(F6)で ring light が反映されない
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 再現できる手順を番号付きで記載してください
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待される結果
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の結果
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 実行環境
+      description: OS / Python / 実行モードなど
+      placeholder: |
+        - OS: Windows 11
+        - Python: 3.12
+        - 実行: GUI / CLI
+        - Mitsuba variant: scalar_rgb
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: ログ・スクリーンショット（任意）
+      description: 可能であればエラー出力や画像を添付してください
