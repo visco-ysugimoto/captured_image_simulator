@@ -5,8 +5,12 @@ from __future__ import annotations
 import threading
 
 
-class RenderCancelled(Exception):
+class RenderCancelledError(Exception):
     """Raised when :meth:`RenderCancellation.request` was called mid-render."""
+
+
+# Backward-compatible alias used across the codebase and public API.
+RenderCancelled = RenderCancelledError
 
 
 class RenderCancellation:
@@ -23,7 +27,7 @@ class RenderCancellation:
 
     def check(self) -> None:
         if self.is_requested():
-            raise RenderCancelled("Render cancelled by user")
+            raise RenderCancelledError("Render cancelled by user")
 
     def reset(self) -> None:
         self._event.clear()

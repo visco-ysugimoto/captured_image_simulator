@@ -8,8 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from PyQt6.QtCore import Qt, QThread, QTimer
-from PyQt6.QtGui import QShowEvent
-from PyQt6.QtGui import QAction, QActionGroup, QKeySequence
+from PyQt6.QtGui import QAction, QActionGroup, QKeySequence, QShowEvent
 from PyQt6.QtWidgets import (
     QApplication,
     QDockWidget,
@@ -18,56 +17,43 @@ from PyQt6.QtWidgets import (
     QMainWindow,
     QMenuBar,
     QMessageBox,
-    QSplitter,
-    QStatusBar,
     QTabWidget,
     QToolBar,
     QVBoxLayout,
     QWidget,
 )
 
-_log = logging.getLogger(__name__)
-
 from ..domain import (
-    BarLight,
     Camera,
-    CoaxialLight,
-    DomeLight,
-    Light,
-    PointLight,
-    RectAreaLight,
-    RingLight,
     Scene,
     Target,
     TelecentricLens,
 )
 from ..domain.common import Transform
-from ..domain.target import TargetMesh
-from ..domain.light import Backlight, LightKind
-from ..domain.target import Primitive, PrimitiveKind, TargetPrimitive
+from ..domain.target import Primitive, PrimitiveKind, TargetMesh, TargetPrimitive
 from ..io import load_project, save_image, save_project
 from ..io.mesh_loader import supported_mesh_extensions
 from ..presets import (
     build_light_preset,
     get_material_for_role,
-    get_material_preset,
     light_preset_names,
-    material_preset_names,
 )
 from ..render import RenderSettings
-from .comparison_view import ComparisonView
-from .property_panel import PropertyPanel
-from .environment_dialog import EnvironmentDialog
-from .progress_dialog import RenderProgressDialog, TaskProgressDialog
-from .render_worker import run_render_in_thread
 from ..render.cancellation import RenderCancellation
+from .calibration_dialog import CalibrationDialog
+from .comparison_view import ComparisonView
+from .environment_dialog import EnvironmentDialog
+from .i18n import LanguageManager
+from .progress_dialog import RenderProgressDialog, TaskProgressDialog
+from .property_panel import PropertyPanel
+from .render_worker import run_render_in_thread
 from .result_view import ResultView
 from .scene_state import SceneState
 from .scene_tree import SceneTree
-from .calibration_dialog import CalibrationDialog
-from .i18n import LanguageManager
 from .sweep_dialog import SweepDialog
 from .ui_theme import configure_main_window_docks, resize_main_window_docks
+
+_log = logging.getLogger(__name__)
 
 
 def _make_default_scene() -> Scene:
@@ -441,7 +427,7 @@ class MainWindow(QMainWindow):
     def _add_light_preset(self, name: str) -> None:
         light = build_light_preset(name)
         base_name = light.name
-        existing = {l.name for l in self.state.scene.lights}
+        existing = {lg.name for lg in self.state.scene.lights}
         i = 1
         while light.name in existing:
             light.name = f"{base_name}_{i}"

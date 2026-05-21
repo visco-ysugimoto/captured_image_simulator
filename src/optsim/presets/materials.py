@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from ..domain import Material, MaterialKind
 
-
 MATERIAL_PRESETS: dict[str, Material] = {
     "white_paper": Material(
         name="white_paper",

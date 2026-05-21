@@ -8,15 +8,16 @@ pydantic model layout, e.g. ``lights.0.intensity`` or
 
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Sequence
+from typing import Any
 
 import numpy as np
 
 from ..domain import Scene
 from ..io.image_io import save_image
-from ..render import RenderResult, Renderer, RenderSettings
+from ..render import Renderer, RenderResult, RenderSettings
 from ..render.cancellation import RenderCancellation, RenderCancelled
 from .metrics import ImageMetrics, compute_metrics
 

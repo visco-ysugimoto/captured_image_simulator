@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import logging
 import traceback
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
-from ..analysis.sweep import SweepResult, run_sweep
+from ..analysis.sweep import run_sweep
 from ..domain import Scene
 from ..render import RenderSettings
 from ..render.cancellation import RenderCancellation, RenderCancelled

@@ -76,5 +76,13 @@ target-version = "py310"
 select = ["E", "F", "W", "I", "B", "UP", "N"]
 ignore = ["E501"]
 
+[tool.ruff.lint.per-file-ignores]
+# PyQt6: signals use camelCase; widgets override Qt event handlers.
+"src/optsim/gui/**" = ["N802", "N815"]
+# Public API name kept for compatibility with existing callers.
+"src/optsim/render/cancellation.py" = ["N818"]
+# Common linear-algebra shorthand in ray-intersection helpers.
+"src/optsim/render/renderer.py" = ["N806", "N803"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

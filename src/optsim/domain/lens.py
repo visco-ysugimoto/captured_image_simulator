@@ -31,7 +31,7 @@ class TelecentricLens(BaseModel):
     distortion_pct: float = Field(default=0.0, ge=-5.0, le=5.0)
 
     @model_validator(mode="after")
-    def _resolve_aperture(self) -> "TelecentricLens":
+    def _resolve_aperture(self) -> TelecentricLens:
         if self.na is None and self.f_number is None:
             object.__setattr__(self, "na", 0.05)
         if self.na is None and self.f_number is not None:

@@ -13,7 +13,6 @@ from PyQt6.QtWidgets import (
     QDoubleSpinBox,
     QFileDialog,
     QFormLayout,
-    QGroupBox,
     QHBoxLayout,
     QHeaderView,
     QLabel,

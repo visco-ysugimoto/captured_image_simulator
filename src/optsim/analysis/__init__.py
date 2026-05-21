@@ -1,5 +1,14 @@
 """Image-quality / inspection-fitness metrics."""
 
+from .calibration import (
+    CalibrationFit,
+    CalibrationMetrics,
+    CalibrationResult,
+    apply_calibration,
+    compute_calibration_metrics,
+    parse_roi,
+    run_calibration,
+)
 from .metrics import (
     EdgeProfile,
     ImageMetrics,
@@ -9,15 +18,6 @@ from .metrics import (
     michelson_contrast,
     snr_db,
     weber_contrast,
-)
-from .calibration import (
-    CalibrationFit,
-    CalibrationMetrics,
-    CalibrationResult,
-    apply_calibration,
-    compute_calibration_metrics,
-    parse_roi,
-    run_calibration,
 )
 from .sweep import SweepResult, run_sweep
 

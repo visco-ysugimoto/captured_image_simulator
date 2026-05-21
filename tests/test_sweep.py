@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from optsim.analysis.sweep import SweepResult, _set_dotted, run_sweep
 from optsim.domain import Camera, Scene, TelecentricLens
 from optsim.domain.light import RingLight

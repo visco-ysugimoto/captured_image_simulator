@@ -8,7 +8,7 @@ import traceback
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
 from ..domain import Scene
-from ..render import RenderResult, Renderer, RenderSettings
+from ..render import Renderer, RenderResult, RenderSettings
 from ..render.cancellation import RenderCancellation, RenderCancelled
 
 _log = logging.getLogger(__name__)

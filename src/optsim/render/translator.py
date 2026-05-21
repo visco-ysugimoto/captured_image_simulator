@@ -15,7 +15,6 @@ import numpy as np
 
 from ..domain import (
     BarLight,
-    Camera,
     CoaxialLight,
     DomeLight,
     Light,
@@ -26,7 +25,6 @@ from ..domain import (
     RingLight,
     Scene,
     Target,
-    TelecentricLens,
 )
 from ..domain.light import Backlight
 from ..domain.target import PrimitiveKind, TargetMesh, TargetPrimitive

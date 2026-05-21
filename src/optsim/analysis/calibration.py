@@ -9,7 +9,7 @@ import numpy as np
 
 from ..domain import Scene
 from ..io.image_io import load_image
-from ..render import RenderResult, Renderer, RenderSettings
+from ..render import Renderer, RenderResult, RenderSettings
 from .metrics import _slice_roi, _to_luma
 
 

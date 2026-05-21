@@ -35,14 +35,6 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from ..presets import (
-    TARGET_ROLE_PRESET_GROUPS,
-    build_light_preset,
-    get_material_for_role,
-    get_material_preset,
-    light_preset_names,
-    material_preset_names,
-)
 from ..domain.light import (
     Backlight,
     BarLight,
@@ -51,6 +43,14 @@ from ..domain.light import (
     PointLight,
     RectAreaLight,
     RingLight,
+)
+from ..presets import (
+    TARGET_ROLE_PRESET_GROUPS,
+    build_light_preset,
+    get_material_for_role,
+    get_material_preset,
+    light_preset_names,
+    material_preset_names,
 )
 from .i18n import LanguageManager
 from .scene_state import SceneState
@@ -520,10 +520,18 @@ class PropertyPanel(QScrollArea):
                 combo.addItem(member_name)
             combo.setCurrentText(value.name)
             _configure_combo(combo)
-            combo.currentTextChanged.connect(
-                lambda text, m=model, n=field_name, et=type(value):
+            enum_type = type(value)
+
+            def _on_enum_changed(
+                text: str,
+                *,
+                m: BaseModel = model,
+                n: str = field_name,
+                et: type = enum_type,
+            ) -> None:
                 self._set_attr(m, n, et[text])
-            )
+
+            combo.currentTextChanged.connect(_on_enum_changed)
             return combo
         return None
 

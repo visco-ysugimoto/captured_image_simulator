@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import importlib
 import platform
-from io import StringIO
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QTextEdit, QVBoxLayout
 
@@ -69,7 +68,7 @@ def _run_doctor_report() -> str:
 
     lines.append("\n-- Fallback dry run --")
     try:
-        from ..domain import Camera, Scene, TelecentricLens, Target
+        from ..domain import Camera, Scene, Target, TelecentricLens
         from ..domain.light import RingLight
         from ..domain.target import Primitive, PrimitiveKind, TargetPrimitive
         from ..render import Renderer, RenderSettings

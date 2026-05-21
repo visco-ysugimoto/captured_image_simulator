@@ -14,8 +14,9 @@ from __future__ import annotations
 
 import importlib
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any
 
 import numpy as np
 
@@ -291,7 +292,6 @@ class Renderer:
         pipeline. Texture/reflectance is approximated by the material base
         color modulated by N.L. Multiple lights are accumulated.
         """
-        import trimesh
 
         cam = scene.camera
         lens = scene.lens
@@ -334,7 +334,7 @@ class Renderer:
         hit_material = np.zeros((flat_origins.shape[0], 5), dtype=np.float64)
 
         visible_targets = [t for t in scene.targets if t.visible]
-        from .mesh_assembly import MergedMeshTarget, coalesce_mesh_targets_for_render
+        from .mesh_assembly import coalesce_mesh_targets_for_render
 
         render_targets = coalesce_mesh_targets_for_render(visible_targets)
         n_targets = max(len(render_targets), 1)
@@ -382,12 +382,12 @@ class Renderer:
             ref_dist2 = 50.0 ** 2
 
             # Hoist all material-/view-dependent BRDF constants out of the
-            # inner light-sample loop: they don't change with l.
+            # inner light-sample loop: they don't change with light direction.
             brdf_ctx = _build_brdf_context(
                 n_hit, view_dir_world, base_hit, material_props
             )
 
-            enabled_lights = [l for l in scene.lights if l.enabled]
+            enabled_lights = [lit for lit in scene.lights if lit.enabled]
             n_lights = max(len(enabled_lights), 1)
             from ..domain.light import Backlight
             for li, light in enumerate(enabled_lights):
@@ -647,11 +647,11 @@ def _build_brdf_context(
     }
 
 
-def _evaluate_brdf_cached(ctx: dict[str, np.ndarray], l: np.ndarray) -> np.ndarray:
+def _evaluate_brdf_cached(ctx: dict[str, np.ndarray], light_dir: np.ndarray) -> np.ndarray:
     """Per-light-sample BRDF using values pre-computed in ``ctx``."""
     n = ctx["n"]
     v = ctx["v"]
-    h = l + v
+    h = light_dir + v
     # ``np.linalg.norm`` is much slower than an explicit sqrt(sum) for
     # this small-axis case (axis=1 of an (M, 3) array).
     h_norm = np.sqrt(np.sum(h * h, axis=1, keepdims=True)) + 1e-8
@@ -673,7 +673,7 @@ def _evaluate_brdf_cached(ctx: dict[str, np.ndarray], l: np.ndarray) -> np.ndarr
 
 def _evaluate_brdf(
     n: np.ndarray,
-    l: np.ndarray,
+    light_dir: np.ndarray,
     v_world: np.ndarray,
     base_color: np.ndarray,
     material_props: np.ndarray,
@@ -684,7 +684,7 @@ def _evaluate_brdf(
     to hoist material-only terms outside the light-sample loop.
     """
     ctx = _build_brdf_context(n, v_world, base_color, material_props)
-    return _evaluate_brdf_cached(ctx, l)
+    return _evaluate_brdf_cached(ctx, light_dir)
 
 
 def _light_samples(light, n_hint: int) -> list[tuple[np.ndarray, np.ndarray | None, float]]:

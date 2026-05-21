@@ -278,9 +278,6 @@ def load_mesh_bounds(
   multi-body scenes when only bounds are needed for the 3D viewport.
     """
     path = Path(path)
-    merge = True
-    if _is_step(path) and part_name not in (None, "default"):
-        merge = False
     all_bounds = load_all_part_bounds(path, scale=scale)
     key = part_name if part_name not in (None, "default") else "default"
     if key in all_bounds:

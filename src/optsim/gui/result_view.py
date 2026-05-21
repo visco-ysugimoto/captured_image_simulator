@@ -8,7 +8,6 @@ histogram, edge profile) recompute on the fly.
 from __future__ import annotations
 
 from dataclasses import asdict
-from typing import Optional
 
 import numpy as np
 from PyQt6.QtCore import QPointF, QRectF, Qt, pyqtSignal
@@ -67,10 +66,10 @@ class ImageView(QGraphicsView):
         self.setMouseTracking(True)
         self.setDragMode(QGraphicsView.DragMode.NoDrag)
 
-        self._pixmap_item: Optional[QGraphicsPixmapItem] = None
-        self._roi_item: Optional[QGraphicsRectItem] = None
-        self._line_p0: Optional[QPointF] = None
-        self._line_p1: Optional[QPointF] = None
+        self._pixmap_item: QGraphicsPixmapItem | None = None
+        self._roi_item: QGraphicsRectItem | None = None
+        self._line_p0: QPointF | None = None
+        self._line_p1: QPointF | None = None
         self._line_visual = None  # QGraphicsLineItem
         self._mode = self.MODE_ROI
 
@@ -152,8 +151,8 @@ class ImageView(QGraphicsView):
             self._line_visual = None
         if self._line_p0 is None or self._line_p1 is None:
             return
-        from PyQt6.QtWidgets import QGraphicsLineItem
         from PyQt6.QtCore import QLineF
+        from PyQt6.QtWidgets import QGraphicsLineItem
         pen = QPen(QColor(80, 200, 255), 2)
         pen.setCosmetic(True)
         self._line_visual = QGraphicsLineItem(QLineF(self._line_p0, self._line_p1))
@@ -164,9 +163,9 @@ class ImageView(QGraphicsView):
 class ResultView(QWidget):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
-        self._last_result: Optional[RenderResult] = None
-        self._roi_pixels: Optional[tuple[int, int, int, int]] = None
-        self._line_pts: Optional[tuple[tuple[int, int], tuple[int, int]]] = None
+        self._last_result: RenderResult | None = None
+        self._roi_pixels: tuple[int, int, int, int] | None = None
+        self._line_pts: tuple[tuple[int, int], tuple[int, int]] | None = None
 
         layout = QHBoxLayout(self)
         self.image_view = ImageView()

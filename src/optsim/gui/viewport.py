@@ -7,7 +7,7 @@ wireframe glyphs. Full-detail shading is via Preview (F5).
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 import numpy as np
 from PyQt6.QtCore import QThread, QTimer
@@ -35,8 +35,8 @@ class Viewport3D(QWidget):
         self.state = state
 
         try:
-            from pyvistaqt import QtInteractor
             import pyvista as pv
+            from pyvistaqt import QtInteractor
         except ImportError as exc:
             raise RuntimeError(
                 "pyvista / pyvistaqt are required for the 3D viewport. "

@@ -11,8 +11,8 @@ from pathlib import Path
 import click
 
 from .analysis import apply_calibration, compute_metrics, run_calibration, run_sweep
-from .io.project_file import save_project
 from .io import load_image, load_project, save_image
+from .io.project_file import save_project
 from .render import Renderer, RenderSettings
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -110,7 +110,7 @@ def sweep(scene_path: str, param: str, values: str, output: str, spp: int, fallb
         output_dir=output,
     )
     click.echo(f"Sweep '{param}' completed across {len(parsed)} values; results in {output}/")
-    for v, m in zip(res.values, res.metrics):
+    for v, m in zip(res.values, res.metrics, strict=True):
         click.echo(f"  {v!r:>14}  mean={m.mean:8.2f}  michelson={m.michelson:.3f}  snr_dB={m.snr_db:6.2f}")
 
 
@@ -287,9 +287,8 @@ def doctor() -> None:
 
     click.echo("\n-- Render dry run --")
     try:
-        from .domain import Camera, Scene, TelecentricLens, RingLight
+        from .domain import Camera, RingLight, Scene, Target, TelecentricLens
         from .domain.target import Primitive, PrimitiveKind, TargetPrimitive
-        from .domain import Target
         from .render import Renderer, RenderSettings
         scene = Scene(
             camera=Camera(),

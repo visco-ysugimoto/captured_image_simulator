@@ -36,7 +36,7 @@ class TelecentricGeometry:
     aperture_radius_mm: float
 
     @classmethod
-    def from_camera_lens(cls, camera: Camera, lens: TelecentricLens) -> "TelecentricGeometry":
+    def from_camera_lens(cls, camera: Camera, lens: TelecentricLens) -> TelecentricGeometry:
         return cls(
             object_width_mm=camera.sensor.width_mm / lens.magnification,
             object_height_mm=camera.sensor.height_mm / lens.magnification,

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from PyQt6.QtCore import QThread, Qt
+from PyQt6.QtCore import QThread
 from PyQt6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -240,7 +240,7 @@ class SweepDialog(QDialog):
     def _push_to_comparison(self, result: SweepResult) -> None:
         assert self._comparison is not None
         short_param = result.parameter.split(".")[-1]
-        for value, render in zip(result.values, result.renders):
+        for value, render in zip(result.values, result.renders, strict=True):
             label = f"{short_param}={value}"
             self._comparison.add_snapshot(label, render)
 

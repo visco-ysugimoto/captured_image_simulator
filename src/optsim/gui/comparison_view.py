@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import asdict
-from typing import Optional
 
 import numpy as np
 from PyQt6.QtCore import Qt
@@ -15,7 +14,6 @@ from PyQt6.QtWidgets import (
     QLabel,
     QPushButton,
     QScrollArea,
-    QSizePolicy,
     QVBoxLayout,
     QWidget,
 )
@@ -111,7 +109,7 @@ class ComparisonView(QWidget):
         return box
 
     @staticmethod
-    def _to_qimage(arr: np.ndarray) -> Optional[QImage]:
+    def _to_qimage(arr: np.ndarray) -> QImage | None:
         if arr.size == 0:
             return None
         if arr.ndim == 2:

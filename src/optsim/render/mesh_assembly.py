@@ -132,7 +132,6 @@ def coalesce_mesh_targets_for_render(targets: list[Target]) -> list[Target | Mer
 
 def world_mesh_for_target(target: Target):
     """Return a world-space triangle mesh for a single mesh target (cached)."""
-    import trimesh
 
     if isinstance(target, MergedMeshTarget):
         return target.world_mesh()

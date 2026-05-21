@@ -6,7 +6,7 @@ response model (quantum efficiency, noise, quantisation) to obtain the final
 """
 
 from .cancellation import RenderCancellation, RenderCancelled
-from .renderer import RenderResult, Renderer, RenderSettings
+from .renderer import Renderer, RenderResult, RenderSettings
 from .sensor_response import apply_sensor_response
 
 __all__ = [
