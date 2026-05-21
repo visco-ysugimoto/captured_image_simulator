@@ -14,8 +14,11 @@
 
 # 動作確認
 .\.venv312\Scripts\python.exe -m pytest -q
+.\.venv312\Scripts\python.exe -m ruff check src tests
 .\.venv312\Scripts\python.exe -m optsim doctor
 ```
+
+CI（GitHub Actions）では GUI 依存を入れず、`pytest -p no:pytestqt` で実行します（Linux ランナーに PyQt6 / libEGL が無くても通るため）。
 
 GUI 起動:
 
