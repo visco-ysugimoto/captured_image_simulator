@@ -18,7 +18,7 @@
 .\.venv312\Scripts\python.exe -m optsim doctor
 ```
 
-CI（GitHub Actions）では GUI 依存を入れず、`pytest -p no:pytestqt` で実行します（Linux ランナーに PyQt6 / libEGL が無くても通るため）。
+CI（GitHub Actions）では `pip install -e ".[dev,step]"` のみ（`pytest-qt` / PyQt6 は含めない。ウィジェットテストは未整備のため）。ローカルで GUI テストを書く場合は `pip install -e ".[all,dev,gui]"` を使ってください。
 
 GUI 起動:
 

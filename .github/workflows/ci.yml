@@ -40,5 +40,4 @@ jobs:
         run: ruff check src tests
 
       - name: Pytest
-        # pytest-qt auto-loads PyQt6 at startup; we have no Qt widget tests yet.
-        run: xvfb-run -a pytest -q -p no:pytestqt
+        run: xvfb-run -a pytest -q
